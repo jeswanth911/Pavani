@@ -138,29 +138,3 @@ def debug_db(db_path: str):
         return {"status": "error", "error": str(e)}
         
 
-predict_router = APIRouter()
-
-@predict_router.post("/predict/")
-async def predict_endpoint(file: UploadFile = File(...), target_col: Optional[str] = None):
-    df = parse_file(file)
-    predictions, metadata = predict_from_file(df, target_col)
-    return {
-        "status": "success",
-        "metrics": metadata["metrics"],
-        "summary": metadata["model_summary"],
-        "target_column": metadata["target_column"],
-        "problem_type": metadata["problem_type"],
-        "explanation": metadata["explanation"],
-        "predictions_sample": predictions.head(10).to_dict(orient="records")
-    }
-
-@router.post("/run-workflow/")
-async def run_workflow_endpoint(file: UploadFile = File(...), question: str = None):
-    # Save file temporarily
-    from utils.file_parser import save_uploaded_file
-    uploaded_path = save_uploaded_file(file)
-
-    # Run full pipeline
-    result = run_full_workflow(uploaded_path, question)
-
-    return result
