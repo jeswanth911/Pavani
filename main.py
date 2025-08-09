@@ -53,9 +53,7 @@ async def log_requests(request: Request, call_next):
 
 # ✅ Mount Routers
 app.include_router(data_router, prefix="/api", tags=["Data Ingestion"])
-app.include_router(query_router, prefix="/api", tags=["Query Engine"])
-app.include_router(predict_router, prefix="/api", tags=["Prediction"])
-app.include_router(workflow_router, prefix="/api", tags=["Data Ingestion"])  # ✅ CORRECTED
+app.include_router(query_router, prefix="/api", tags=["Query Engine"]) # ✅ CORRECTED
 
 # ✅ Root health check
 @app.get("/")
