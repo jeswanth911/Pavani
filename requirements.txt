@@ -31,3 +31,7 @@ scikit-learn
 pandas
 numpy
 matplotlib
+pandas
+numpy
+scipy
+python-dateutil
